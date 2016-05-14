@@ -1,0 +1,59 @@
+---
+layout: post
+title:  "Parallel"
+date:   2016-05-12 20:04:10
+---
+
+[Parallel](http://www.gnu.org/software/parallel/)是一个shell工具，可以在一台或者多台计算机上并行执行任务。和xargs有相似的使用方法，能代替shell中的大部分循环操作并且使任务变得更快。
+
+![](http://www.gnu.org/software/parallel/logo-gray+black300.png)
+
+> GNU parallel is a shell tool for executing jobs in parallel using one or more computers. A job can be a single command or a small script that has to be run for each of the lines in the input. The typical input is a list of files, a list of hosts, a list of users, a list of URLs, or a list of tables. A job can also be a command that reads from a pipe. GNU parallel can then split the input and pipe it into commands in parallel.
+
+
+# 安装
+
+在ubuntu系统下可以使用下面一行简单的命令进行安装
+
+{% highlight ruby %} 
+(wget -O - pi.dk/3 || curl pi.dk/3/ || fetch -o - [http://pi.dk/3)](http://pi.dk/3)) | bash  
+{% endhighlight %}
+
+也可以这样安装
+
+{% highlight ruby %}    
+wget http://ftpmirror.gnu.org/parallel/parallel-20160422.tar.bz2 # 下载源文件
+tar -jxvf parallel-20160422.tar.bz2 # 解压
+cd parallel-20160422 # 进入解压后的文件夹
+./configure && make && sudo make install # 安装，需要管理员权限
+{% endhighlight %}
+
+# 简单的使用
+
+在这之前我们都这么用：
+
+{% highlight ruby %}
+for i in `ls *fq`; do 
+    fastqc $i
+done
+{% endhighlight %}
+
+现在我们可以这么用：
+
+    parall 'fastqc {}' ::: *fq
+
+
+ [这么用](https://www.biostars.org/p/63816/)：
+
+{% highlight ruby %}
+parallel 'zcat {} > {.}.unpacked' ::: *.gz
+{% endhighlight %}
+
+[还可以这么用](http://www.gettinggeneticsdone.com/2014/03/visualize-coverage-exome-targeted-ngs-bedtools.html)
+
+
+    find *bam | parallel 'bedtools coverage -hist -abam {} -b target_regions.bed | grep ^all > {}.hist.all.txt'
+
+更多详细使用方法请“找男人”，或者请见开源中国的这一篇详细介绍：[请戳这里](http://my.oschina.net/enyo/blog/271612)
+
+    man parallel
