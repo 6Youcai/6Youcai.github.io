@@ -15,13 +15,13 @@ date:   2016-05-12 20:04:10
 
 在ubuntu系统下可以使用下面一行简单的命令进行安装
 
-{% highlight ruby %} 
+{% highlight bash %} 
 (wget -O - pi.dk/3 || curl pi.dk/3/ || fetch -o - [http://pi.dk/3)](http://pi.dk/3)) | bash  
 {% endhighlight %}
 
 也可以这样安装
 
-{% highlight ruby %}    
+{% highlight bash %}    
 wget http://ftpmirror.gnu.org/parallel/parallel-20160422.tar.bz2 # 下载源文件
 tar -jxvf parallel-20160422.tar.bz2 # 解压
 cd parallel-20160422 # 进入解压后的文件夹
@@ -32,7 +32,7 @@ cd parallel-20160422 # 进入解压后的文件夹
 
 在这之前我们都这么用：
 
-{% highlight ruby %}
+{% highlight bash %}
 for i in `ls *fq`; do 
     fastqc $i
 done
@@ -45,7 +45,7 @@ done
 
  [这么用](https://www.biostars.org/p/63816/)：
 
-{% highlight ruby %}
+{% highlight bash %}
 parallel 'zcat {} > {.}.unpacked' ::: *.gz
 {% endhighlight %}
 
