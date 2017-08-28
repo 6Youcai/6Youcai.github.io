@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google’s R Style Guide</title>
+    <meta charset="utf-8">
+    <meta name="author" content="youcai" />
+<!--    <link rel="stylesheet" href="zh-CN.css" type="text/css" />
+-->
+  </head>
+  <style type="text/css">
+@font-face {
+  font-family: 'Yanone Kaffeesatz';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Yanone Kaffeesatz Regular'), local('YanoneKaffeesatz-Regular'),
+       url('https://github.com/yihui/xaringan/releases/download/v0.1/yanone-kaffeesatz.woff') format('woff');
+}
+@font-face {
+  font-family: 'Droid Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Serif'), local('DroidSerif'),
+       url('https://github.com/yihui/xaringan/releases/download/v0.1/droid-serif.woff') format('woff');
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Source Code Pro'), local('SourceCodePro-Regular'),
+       url('https://github.com/yihui/xaringan/releases/download/v0.1/source-code-pro.woff') format('woff');
+}
+
+body { font-family: 'Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Songti SC', serif; }
+h1, h2, h3 {
+  font-family: 'Yanone Kaffeesatz', 'Palatino Linotype', 'Book Antiqua', Palatino, 'STHeiti', 'SimHei', 'Microsoft YaHei';
+  font-weight: normal;
+}
+a, a > code {
+  color: rgb(249, 38, 114);
+  text-decoration: none;
+}
+.footnote {
+  position: absolute;
+  bottom: 3em;
+  padding-right: 4em;
+  font-size: 90%;
+}
+.remark-code, .remark-inline-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace; }
+.remark-code-line-highlighted     { background-color: #ffff88; }
+
+.inverse {
+  background-color: #272822;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+.inverse h1, .inverse h2, .inverse h3 {
+  color: #f3f3f3;
+  line-height: 1.0em;
+}
+/* Two-column layout */
+.left-column {
+  color: #777;
+  width: 20%;
+  height: 92%;
+  float: left;
+}
+.left-column h2:last-of-type, .left-column h3:last-child {
+  color: #000;
+}
+.right-column {
+  width: 75%;
+  float: right;
+  padding-top: 1em;
+}
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ * {
+  clear: both;
+}
+img {
+  max-width: 100%;
+}
+blockquote {
+  border-left: solid 5px lightgray;
+  padding-left: 1em;
+}
+
+.red {
+  color: #FF0000;
+}
+  </style>
+
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Google’s R Style Guide
+### youcai
+### 2017/3/2
+
+---
+
+
+# Summary
+
+### R Style Rules
+
+.pull-left[
+- File Names
+- Identifiers
+- Line Length
+- Indentation
+- Spacing
+- Curly Braces
+]
+
+.pull-right[
+- else
+- Assignment
+- Semicolons
+- General Layout and Ordering
+- Commenting 
+- Function
+]
+
+### R Language Rules
+
+- attach
+- Functions
+- Objects and Methods
+
+???
+
+The point of having style guidelines is 
+
+to have a common vocabulary of coding 
+
+so people can concentrate on what you are saying, 
+
+rather than on how you are saying it.
+
+---
+
+# File Names
+
+- end in .R
+
+- .red[meaningful]
+
+&gt; 
+predict_ad_revenue.R
+&gt; 
+~~foo.R~~
+
+
+--
+![](/image/haoniubi.png)
+
+---
+
+# Identifiers
+
+.pull-left[
+## variable.name
+
+- avg.clicks avgClicks 
+
+- ~~avg_Clicks~~
+]
+
+.pull-right[
+## FunctionName
+
+- CalculateAvgClicks 
+
+- ~~late_avg_clicks~~ , 
+
+- ~~calculateAvgClicks~~
+]
+
+### kConstantName
+
+???
+变量中不要使用下划线或连字符
+
+根据上下文命名变量
+
+全部小写，点号分割，驼峰亦可
+
+程序名首字母大写，中间没有点
+
+常量命名以小写k开头
+
+---
+
+# Syntax
+
+.pull-left[
+#### Assignment
+
+- Use `&lt;-`, not `=`
+
+#### Indentation
+
+- two spaces
+
+#### Semicolons
+
+- Do not terminate your lines
+
+####  Line Length
+
+- &lt;= 80 characters.
+]
+
+.pull-right[
+#### spacing
+
+- around all binary operators
+
+#### Extra spacing
+
+-  improves alignment
+
+#### Commenting
+
+- begin with # and one space
+]
+
+???
+
+Short comments can be placed after code 
+
+preceded by two spaces, #, and then one space.
+
+---
+
+### BAD
+
+--
+
+```r
+if(debug)
+
+if ( debug )
+x[1,]
+
+tab.prior &lt;- table(df[df$days.from.opt&lt;0, "campaign.id"])
+tab.prior &lt;- table(df[df$days.from.opt &lt; 0,"campaign.id"])
+tab.prior&lt;- table(df[df$days.from.opt &lt; 0, "campaign.id"])
+tab.prior&lt;-table(df[df$days.from.opt &lt; 0, "campaign.id"])
+total &lt;- sum(x[,1])
+total &lt;- sum(x[ ,1])
+```
+
+--
+
+### GOOD
+
+--
+
+```r
+if (debug)
+x[1, ]
+
+plot(x    = x.coord,
+     y    = data.mat[, MakeColName(metric, ptiles[1], "roiOpt")],
+     ylim = ylim,
+     xlab = "dates",
+     ylab = metric,
+     main = (paste(metric, " for 3 samples ", sep = "")))
+```
+
+???
+
+Do not place a space before a comma, 
+
+but always place one after a comma.
+
+Place a space before left parenthesis, 
+
+except in a function call.
+
+lace a space before left parenthesis, except in a function call.
+
+---
+
+background-image: url(https://raw.githubusercontent.com/6Youcai/6Youcai.github.io/master/image/yijiaotu.jpg)
+background-size: 400px
+background-position: 90% 90%
+
+# Curly Braces
+
+**An opening curly brace** should never go on its own line
+
+**a closing curly brace** should always go on its own line.
+
+.pull-left[
+```r
+if (condition) {
+  one or more lines
+} else {
+  one or more lines
+}
+```
+]
+.pull-right[
+
+```r
+if (is.null(ylim)) 
+{
+  ylim &lt;- c(0, 0.06) }
+```
+]
+
+.pull-left[
+
+```r
+if (is.null(ylim))
+  ylim &lt;- c(0, 0.06)
+```
+[知乎专栏——代码战争](https://zhuanlan.zhihu.com/p/19700946?columnSlug=codewar)
+]
+
+
+???
+
+一天我路过一座桥，碰巧看见一个人想跳河自杀。
+我跑过去对他大喊道：“别跳，别死啊。”
+
+“为什么不让我跳？”他说。
+“因为还有很多东西值得我们活下去啊。”
+
+“有吗？比如说？”
+“呃……你做什么工作？”
+
+“程序员。”
+我说：“我也是！瞧，有共同点了吧。你是软件还是硬件？”
+
+“软件。”
+“我也是！PC 还是 Web？”
+
+“PC。”
+“我也是！Windows 还是 Linux 平台？”
+
+“Linux。”
+“我也是！那你使用 C 还是 C++？”
+
+“C++。”
+“我也是。1998 年的 C++ 98 还是 2011 年的 C++ 11？”
+
+“2011 年的 C++ 11。”
+“我也是。大括号写在后面还是写在下一行？”
+
+“下一行。”
+
+“去死吧！你这个异教徒人渣！”我一把将他推下桥去。
+
+---
+
+# General Layout and Ordering
+
+- Copyright statement comment
+
+- Author comment
+
+- File description comment, 
+
+- source() and library() statements
+
+- Function definitions
+
+- Executed statements, if applicable (e.g., print, plot)
+
+???
+
+If everyone uses the same general ordering, 
+
+we'll be able to read and understand 
+
+each other's scripts faster and more easily.
+
+File description comment
+
+including purpose of program, inputs, and outputs
+
+---
+
+# .red[Function ]
+
+.pull-left[
+### Definitions and Calls
+
+- arguments without default values, 
+
+- followed by those with default values.
+]
+
+.pull-right[
+### Documentation
+
+- below the function definition line. 
+]
+
+---
+
+# EXAMPLE
+
+```r
+CalculateSampleCovariance &lt;- function(x, y, verbose = TRUE) {
+  # Computes the sample covariance between two vectors.
+  #
+  # Args:
+  #   x: One of two vectors whose sample covariance is to be calculated.
+  #   y: The other vector. x and y must have the same length, greater than one,
+  #      with no missing values.
+  #   verbose: If TRUE, prints sample covariance; if not, not. Default is TRUE.
+  #
+  # Returns:
+  #   The sample covariance between x and y.
+  n &lt;- length(x)
+  # Error handling
+  if (n &lt;= 1 || n != length(y)) {
+    stop("Arguments x and y have different lengths: ",
+         length(x), " and ", length(y), ".")
+  }
+  if (TRUE %in% is.na(x) || TRUE %in% is.na(y)) {
+    stop(" Arguments x and y must not have missing values.")
+  }
+  covariance &lt;- var(x, y)
+  if (verbose)
+    cat("Covariance = ", round(covariance, 4), ".\n", sep = "")
+  return(covariance)
+}
+```
+
+???
+
+These comments should consist of a one-sentence description of the function;
+
+a list of the function's arguments, denoted by Args:, 
+
+with a description of each (including the data type); 
+
+and a description of the return value, denoted by Returns:. 
+
+The comments should be descriptive enough 
+
+that a caller can use the function without reading any of the function's code.
+
+---
+
+# Language
+
+- Avoid Attach
+
+- using stop() raise Errors 
+
+- Objects and Methods
+
+- Exceptions
+
+???
+
+Use S3 objects and methods 
+
+unless there is a strong reason to use S4 objects or methods. 
+
+there always exceptions
+
+---
+
+class: center, middle
+
+# 谢谢
+
+.footnote[[* reference]
+[google stytle guide](https://google.github.io/styleguide/Rguide.xml)]
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

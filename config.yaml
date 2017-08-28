@@ -1,0 +1,44 @@
+baseurl: "/"
+languageCode: "en-us"
+# title: "A Hugo website"
+theme: "hugo-ivy"
+# googleAnalytics: ""
+disqusShortname: "youcai"
+ignoreFiles: ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", ".Rhistory"]
+
+enableEmoji: true
+
+permalinks:
+    post: "/:year/:month/:day/:slug/"
+
+##
+menu:
+  main:
+    - name: "首页"
+      url: "/"
+      weight: 1
+    - name: "关于"
+      url: "/about/"
+      weight: 2
+    - name: "博文"
+      url: "/post/"
+      weight: 3
+    # - name: "分类"
+    #  url: "/categories/"
+    #  weight: 4
+    #- name: "标签"
+    #  url: "/tags/"
+    #  weight: 5
+    
+params:
+    description: "Youcai Liu"
+    footer: "&copy; [Youcai](/)  2015 - 2017 | [Github](https://github.com/6youcai) | [Zhihu](https://www.zhihu.com/people/liuyoucai)"
+    
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion: "9.12.0"
+    highlightjsCDN: "//cdn.bootcss.com"
+    highlightjsLang: ["r", "yaml", "tex"]
+    highlightjsTheme: "github"
+
+    MathJaxCDN: "//cdn.bootcss.com"
+    MathJaxVersion: "2.7.1"

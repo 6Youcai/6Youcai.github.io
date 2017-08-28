@@ -1,0 +1,96 @@
+---
+title:  最小二乘法推导
+date: "2017-06-21"
+author: 刘有才
+---
+
+#  OSL
+
+一个简单的线性拟合如下：
+
+```
+plot(women$height, women$weight)
+abline(lm(weight ~ height, data = women))
+```
+
+```{r echo=FALSE}
+plot(women$height, women$weight)
+fit <- lm(weight ~ height, data = women)
+abline(fit)
+# summary(fit)
+segments(women$height, women$weight, women$height, fitted(fit), col = 2, lwd = 2)
+legend("topleft", legend = "y=ax+b")
+```
+
+1. RSS
+
+$$
+\begin{cases}
+y = ax +b \\ \\
+RSS = \sum_{i=1}^n \big [y_i-(ax_i+b) \big ]^2
+\end{cases}
+$$
+
+2. partial
+
+$$
+\begin{cases} 
+\frac{\partial RSS}{\partial a} = -2 \sum x_i \big [y_i-(ax_i+b) \big] = 
+-2 \big( \sum x_i y_i - a \sum x_i^2 - b \sum x_i \big)
+\\ \\
+\frac{\partial RSS}{\partial b} = -2 \sum \big [y_i-(ax_i+b) \big] = 
+-2\big(\sum y_i -a \sum x_i - nb \big)
+\end{cases}
+$$
+
+3. equation
+
+$$
+\begin{cases} 
+\frac{\partial RSS}{\partial b} = 0 \\ \\
+\sum y_i -a \sum x_i - nb = 0 \\ \\
+n \overline{Y} - an \overline{X} - nb = 0 \\ \\
+b = \overline{Y} - a \overline{X}
+\end{cases}
+$$
+
+<p><p>
+
+$$
+\begin{cases}
+\frac{\partial RSS}{\partial a} = 0 \\ \\
+\sum x_i y_i - a \sum x_i^2 - b \sum x_i = 0 \\ \\
+\sum x_i y_i - a \sum x_i^2 - \big( \overline{Y} - a \overline{X} \big) \sum x_i = 0 \\ \\
+% \sum x_i y_i - a \sum x_i^2 - \overline{Y} \sum x_i  + a \overline{X} \sum x_i = 0 \\ \\
+\sum x_i y_i  - \overline{Y} \sum x_i  = a \sum x_i^2 - a \overline{X} \sum x_i\\ \\
+a = \frac{\sum x_iy_i - \overline{Y} \sum x_i} {\sum x_i^2 - \overline{X} \sum x_i} =
+\frac{\sum \big(x_i-\overline{X}\big) \big(y_i-\overline{Y}\big)}{\sum \big(x_i - \overline{X} \big)^2} \quad ①
+\end{cases}
+$$
+
+4. prove
+
+- numerator
+
+$$\begin{aligned}
+\sum \big(x_i-\overline{X}\big) \big(y_i-\overline{Y}\big)
+& = \sum \big(x_iy_i - x_i \overline{Y} - \overline{X}y_i + \overline{X}\overline{Y} \big) \\ \\
+& = \sum x_iy_i - \sum x_i \overline{Y} - \sum \overline{X}y_i + \sum \overline{X}\overline{Y} \\ \\ 
+& = \sum x_iy_i - n \overline{X} \overline{Y} - n \overline{X} \overline{Y} + n \overline{X} \overline{Y} \\ \\
+& = \sum x_iy_i - \overline{Y} \sum x_i
+\end{aligned}
+$$
+
+- denominator
+
+$$
+\begin{aligned}
+\sum \big(x_i - \overline{X} \big)^2 & = \sum \big(x_i^2 -2x_i \overline{X} + \overline{X}^2 \big) \\ \\
+& = \sum x_i^2 - 2\overline{X}\sum x_i + \sum \overline{X}^2 \\ \\
+& = \sum x_i^2 - 2n\overline{X}^2 + n \overline{X}^2 \\ \\
+& = \sum x_i^2 - n \overline{X}^2 \\ \\
+& = \sum x_i^2 - \overline{X} \sum x_i
+\end{aligned}
+$$
+
+## end

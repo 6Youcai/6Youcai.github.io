@@ -1,0 +1,89 @@
+---
+title:  最小二乘法推导
+date: "2017-06-21"
+author: 刘有才
+---
+
+
+
+<div id="osl" class="section level1">
+<h1>OSL</h1>
+<p>一个简单的线性拟合如下：</p>
+<pre><code>plot(women$height, women$weight)
+abline(lm(weight ~ height, data = women))</code></pre>
+<p><img src="/post/2017-06-21-OSL_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<ol style="list-style-type: decimal">
+<li>RSS</li>
+</ol>
+<p><span class="math display">\[
+\begin{cases}
+y = ax +b \\ \\
+RSS = \sum_{i=1}^n \big [y_i-(ax_i+b) \big ]^2
+\end{cases}
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>partial</li>
+</ol>
+<p><span class="math display">\[
+\begin{cases} 
+\frac{\partial RSS}{\partial a} = -2 \sum x_i \big [y_i-(ax_i+b) \big] = 
+-2 \big( \sum x_i y_i - a \sum x_i^2 - b \sum x_i \big)
+\\ \\
+\frac{\partial RSS}{\partial b} = -2 \sum \big [y_i-(ax_i+b) \big] = 
+-2\big(\sum y_i -a \sum x_i - nb \big)
+\end{cases}
+\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>equation</li>
+</ol>
+<p><span class="math display">\[
+\begin{cases} 
+\frac{\partial RSS}{\partial b} = 0 \\ \\
+\sum y_i -a \sum x_i - nb = 0 \\ \\
+n \overline{Y} - an \overline{X} - nb = 0 \\ \\
+b = \overline{Y} - a \overline{X}
+\end{cases}
+\]</span></p>
+<p>
+<p>
+<p><span class="math display">\[
+\begin{cases}
+\frac{\partial RSS}{\partial a} = 0 \\ \\
+\sum x_i y_i - a \sum x_i^2 - b \sum x_i = 0 \\ \\
+\sum x_i y_i - a \sum x_i^2 - \big( \overline{Y} - a \overline{X} \big) \sum x_i = 0 \\ \\
+% \sum x_i y_i - a \sum x_i^2 - \overline{Y} \sum x_i  + a \overline{X} \sum x_i = 0 \\ \\
+\sum x_i y_i  - \overline{Y} \sum x_i  = a \sum x_i^2 - a \overline{X} \sum x_i\\ \\
+a = \frac{\sum x_iy_i - \overline{Y} \sum x_i} {\sum x_i^2 - \overline{X} \sum x_i} =
+\frac{\sum \big(x_i-\overline{X}\big) \big(y_i-\overline{Y}\big)}{\sum \big(x_i - \overline{X} \big)^2} \quad ①
+\end{cases}
+\]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>prove</li>
+</ol>
+<ul>
+<li>numerator</li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+\sum \big(x_i-\overline{X}\big) \big(y_i-\overline{Y}\big)
+&amp; = \sum \big(x_iy_i - x_i \overline{Y} - \overline{X}y_i + \overline{X}\overline{Y} \big) \\ \\
+&amp; = \sum x_iy_i - \sum x_i \overline{Y} - \sum \overline{X}y_i + \sum \overline{X}\overline{Y} \\ \\ 
+&amp; = \sum x_iy_i - n \overline{X} \overline{Y} - n \overline{X} \overline{Y} + n \overline{X} \overline{Y} \\ \\
+&amp; = \sum x_iy_i - \overline{Y} \sum x_i
+\end{aligned}
+\]</span></p>
+<ul>
+<li>denominator</li>
+</ul>
+<p><span class="math display">\[
+\begin{aligned}
+\sum \big(x_i - \overline{X} \big)^2 &amp; = \sum \big(x_i^2 -2x_i \overline{X} + \overline{X}^2 \big) \\ \\
+&amp; = \sum x_i^2 - 2\overline{X}\sum x_i + \sum \overline{X}^2 \\ \\
+&amp; = \sum x_i^2 - 2n\overline{X}^2 + n \overline{X}^2 \\ \\
+&amp; = \sum x_i^2 - n \overline{X}^2 \\ \\
+&amp; = \sum x_i^2 - \overline{X} \sum x_i
+\end{aligned}
+\]</span></p>
+<div id="end" class="section level2">
+<h2>end</h2>
+</div>
+</div>
