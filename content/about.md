@@ -29,3 +29,20 @@ title: "关于我的一切"
 我并不期待扬名立万^[网页技能是一个人扬名立万的性价比最高的手段]，只是记录整理一些有趣的事情。
 
 > I web, therefore I am ~~a spiderman~~.
+
+## 联系我
+
+<h4>Drop me a line, maybe?</h4>
+<form id="contact-form" class="contact-form form" method="post" action="https://formspree.io/youcai.6@qq.com">
+
+  <label for="name">Your name *</label>
+  <input type="text" name="name" id="name" required="required" size="30" class="form-control">
+
+  <label for="email">Your email *</label>
+  <input type="email" name="email" id="email" required="required" size="30" class="form-control">
+
+  <label for="message">Your message for me *</label><p>
+  <textarea rows="5" name="message" id="message" required="required" cols="40" class="form-control"></textarea>
+
+  <input type="submit" value="Send" class="btn btn-ghost">
+</form>
