@@ -11,7 +11,7 @@ enableEmoji: true
 permalinks:
     post: "/:year/:month/:day/:slug/"
 
-FootnoteReturnLinkContents: "↑"
+FootnoteReturnLinkContents: "↩"
 
 ##
 menu:
