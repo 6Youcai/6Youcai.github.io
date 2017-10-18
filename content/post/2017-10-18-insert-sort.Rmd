@@ -1,0 +1,89 @@
+---
+title: 插入排序
+date: "2017-10-18"
+author: 吴彦祖
+slug: insert-sort
+---
+
+插入排序的基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，时间复杂度为O(n^2)。是稳定的排序方法。
+
+![](http://img.my.csdn.net/uploads/201405/15/1400117077_7279.jpg)
+
+## python
+
+```{python}
+def insert_sort(lists):
+    for i in range(1, len(lists)):
+        key = lists[i]
+        j = i-1 
+        # insert key into lists[:i]
+        while j>=0 and lists[j] > key:
+            lists[j+1] = lists[j] # move
+            j = j -1
+        lists[j+1] = key # insert 
+    return lists
+```
+
+## R
+```{r}
+insert_sort <- function(lists) {
+  countN <- length(lists)
+  for(i in 2:countN) {
+    key <- lists[i]
+    j <- i-1
+    while(j >= 1 && lists[j] > key) {
+      lists[j+1] <- lists[j]
+      j <- j - 1
+    }
+    lists[j+1] <- key
+  }
+  return(lists)
+}
+```
+
+# test
+
+随机生成50个1~100之间的整数进行测试；
+
+```{r}
+library(magrittr)
+runif(50, 1, 100) %>% round %T>% 
+  barplot(main = "unsorted", col = "#fc8d59") %>% 
+  insert_sort %>% 
+  barplot(main = "sorted", col = "#99d594")
+```
+
+# GIF
+
+利用`animation`将排序过程进行可视化。
+
+```{r eval=FALSE}
+library(animation)
+lists <- runif(50, 1, 100) %>% round
+saveGIF({
+  countN <- length(lists)
+  color <- rep("", countN)
+  
+  for(i in 2:countN) {
+    color[1 : (i-1)] <- "#99d594" # orded
+    color[i] <- "#ffffbf" # key
+    color[(i+1) : countN] <- "#fc8d59" # disorded
+    
+    barplot(lists, col = color, yaxt = "n")
+    key <- lists[i]
+    j <- i-1
+    while(j >= 1 && lists[j] > key) {
+      lists[j+1] <- lists[j] # move
+      j <- j - 1
+    }
+    lists[j+1] <- key
+    color[i] <- "#99d594" # orded
+    color[j+1] <- "#ffffbf" # insertion
+    barplot(lists, col = color, yaxt = "n")
+  }},
+  
+  movie.name = "tt.gif"
+)
+```
+
+![](http://7xpbbb.com1.z0.glb.clouddn.com/insert.sort.gif)
