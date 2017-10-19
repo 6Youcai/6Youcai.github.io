@@ -1,0 +1,87 @@
+---
+title: 插入排序
+date: "2017-10-18"
+author: 吴彦祖
+slug: insert-sort
+---
+
+
+
+<p>插入排序的基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，时间复杂度为O(n^2)，是稳定的排序方法。</p>
+<div class="figure">
+<img src="http://img.my.csdn.net/uploads/201405/15/1400117077_7279.jpg" />
+
+</div>
+<ul>
+<li>python</li>
+</ul>
+<pre class="python"><code>def insert_sort(lists):
+    for i in range(1, len(lists)):
+        key = lists[i]
+        j = i-1 
+        # insert key into lists[:i]
+        while j&gt;=0 and lists[j] &gt; key:
+            lists[j+1] = lists[j] # move
+            j = j -1
+        lists[j+1] = key # insert 
+    return lists</code></pre>
+<ul>
+<li>R</li>
+</ul>
+<pre class="r"><code>insert_sort &lt;- function(lists) {
+  countN &lt;- length(lists)
+  for(i in 2:countN) {
+    key &lt;- lists[i]
+    j &lt;- i-1
+    while(j &gt;= 1 &amp;&amp; lists[j] &gt; key) {
+      lists[j+1] &lt;- lists[j]
+      j &lt;- j - 1
+    }
+    lists[j+1] &lt;- key
+  }
+  return(lists)
+}</code></pre>
+<ul>
+<li>test</li>
+</ul>
+<p>随机生成50个1~100之间的整数进行测试；</p>
+<pre class="r"><code>library(magrittr)
+runif(50, 1, 100) %&gt;% round %T&gt;% 
+  barplot(main = &quot;unsorted&quot;, col = &quot;#fc8d59&quot;) %&gt;% 
+  insert_sort %&gt;% 
+  barplot(main = &quot;sorted&quot;, col = &quot;#99d594&quot;)</code></pre>
+<p><img src="/post/2017-10-18-insert-sort_files/figure-html/unnamed-chunk-3-1.png" width="672" /><img src="/post/2017-10-18-insert-sort_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<ul>
+<li>GIF</li>
+</ul>
+<p>利用<code>animation</code>将排序过程进行可视化。</p>
+<pre class="r"><code>library(animation)
+lists &lt;- runif(50, 1, 100) %&gt;% round
+saveGIF({
+  countN &lt;- length(lists)
+  color &lt;- rep(&quot;&quot;, countN)
+  
+  for(i in 2:countN) {
+    color[1 : (i-1)] &lt;- &quot;#99d594&quot; # ordered
+    color[i] &lt;- &quot;#ffffbf&quot; # key
+    color[(i+1) : countN] &lt;- &quot;#fc8d59&quot; # disordered
+    
+    barplot(lists, col = color, yaxt = &quot;n&quot;)
+    key &lt;- lists[i]
+    j &lt;- i-1
+    while(j &gt;= 1 &amp;&amp; lists[j] &gt; key) {
+      lists[j+1] &lt;- lists[j] # move
+      j &lt;- j - 1
+    }
+    lists[j+1] &lt;- key
+    color[i] &lt;- &quot;#99d594&quot; # ordered
+    color[j+1] &lt;- &quot;#ffffbf&quot; # insertion
+    barplot(lists, col = color, yaxt = &quot;n&quot;)
+  }},
+  
+  movie.name = &quot;tt.gif&quot;
+)</code></pre>
+<div class="figure">
+<img src="http://7xpbbb.com1.z0.glb.clouddn.com/insert.sort.gif" />
+
+</div>
