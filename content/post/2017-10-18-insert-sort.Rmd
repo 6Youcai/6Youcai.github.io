@@ -5,11 +5,26 @@ author: 吴彦祖
 slug: insert-sort
 ---
 
+大家好，我是吴彦祖，除了长得帅，我平时也研究算法，今天我来讲一下插入排序算法。
+
+### 基本套路
+
+和小伙伴斗地主的时候，我习惯把牌从小到大排列好，这其中都是包含算法的，下面分解其中一个瞬间：抓到草花七并插入的过程。
+
+<center>
+![](http://img.my.csdn.net/uploads/201405/15/1400117077_7279.jpg)
+</center>
+
+首先，手中已有的牌2、4、5、10是排好顺序的，拿到7之后从右往左看，10比7大，所以把10往右挪一位，然后继续看，5比7小，所以将摸到的牌插入此位，完成一次抓牌。
+
+[百度百科](https://baike.baidu.com/item/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F)
+
+> 
 插入排序的基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，时间复杂度为O(n^2)，是稳定的排序方法。
 
-![](http://img.my.csdn.net/uploads/201405/15/1400117077_7279.jpg)
+### 代码实现
 
-- python
+除了演戏，我还写代码，下面是我用`python`和`R`实现插入排序的代码，顺便说一句，我认为Python和R，两手都要抓，两手都要硬；
 
 ```{python}
 def insert_sort(lists):
@@ -24,11 +39,9 @@ def insert_sort(lists):
     return lists
 ```
 
-- R
 ```{r}
 insert_sort <- function(lists) {
-  countN <- length(lists)
-  for(i in 2:countN) {
+  for(i in 2:length(lists)) {
     key <- lists[i]
     j <- i-1
     while(j >= 1 && lists[j] > key) {
@@ -41,8 +54,6 @@ insert_sort <- function(lists) {
 }
 ```
 
-- test
-
 随机生成50个1~100之间的整数进行测试；
 
 ```{r}
@@ -53,9 +64,9 @@ runif(50, 1, 100) %>% round %T>%
   barplot(main = "sorted", col = "#99d594")
 ```
 
-- GIF
+### 可视化
 
-利用`animation`将排序过程进行可视化。
+平时演戏较多养成了职业病，我手痒把排序过程利用`animation`演示出来，除了在荧幕前欣赏演技，还可以看看算法。
 
 ```{r eval=FALSE}
 library(animation)
@@ -87,3 +98,9 @@ saveGIF({
 ```
 
 ![](http://7xpbbb.com1.z0.glb.clouddn.com/insert.sort.gif)
+
+### 分类
+
+上面展示的属于**直接插入排序**，我们将待排序元素插入时，是从右往左挨个挨个试，这样并不划算，因为我们知道前面的数字已经排好顺序了，可以利用这个特性，快速找到待插入的位置，这便是**折半插入排序**；当然了，插入排序还有其他实现方法，这里按下暂且不表。
+
+再见。

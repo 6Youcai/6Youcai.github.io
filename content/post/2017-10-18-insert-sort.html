@@ -7,14 +7,22 @@ slug: insert-sort
 
 
 
-<p>插入排序的基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，时间复杂度为O(n^2)，是稳定的排序方法。</p>
-<div class="figure">
+<p>大家好，我是吴彦祖，除了长得帅，我平时也研究算法，今天我来讲一下插入排序算法。</p>
+<div class="section level3">
+<h3>基本套路</h3>
+<p>和小伙伴斗地主的时候，我习惯把牌从小到大排列好，这其中都是包含算法的，下面分解其中一个瞬间：抓到草花七并插入的过程。</p>
+<center>
 <img src="http://img.my.csdn.net/uploads/201405/15/1400117077_7279.jpg" />
-
+</center>
+<p>首先，手中已有的牌2、4、5、10是排好顺序的，拿到7之后从右往左看，10比7大，所以把10往右挪一位，然后继续看，5比7小，所以将摸到的牌插入此位，完成一次抓牌。</p>
+<p><a href="https://baike.baidu.com/item/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F">百度百科</a></p>
+<blockquote>
+<p>插入排序的基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，时间复杂度为O(n^2)，是稳定的排序方法。</p>
+</blockquote>
 </div>
-<ul>
-<li>python</li>
-</ul>
+<div class="section level3">
+<h3>代码实现</h3>
+<p>除了演戏，我还写代码，下面是我用<code>python</code>和<code>R</code>实现插入排序的代码，顺便说一句，我认为Python和R，两手都要抓，两手都要硬；</p>
 <pre class="python"><code>def insert_sort(lists):
     for i in range(1, len(lists)):
         key = lists[i]
@@ -25,12 +33,8 @@ slug: insert-sort
             j = j -1
         lists[j+1] = key # insert 
     return lists</code></pre>
-<ul>
-<li>R</li>
-</ul>
 <pre class="r"><code>insert_sort &lt;- function(lists) {
-  countN &lt;- length(lists)
-  for(i in 2:countN) {
+  for(i in 2:length(lists)) {
     key &lt;- lists[i]
     j &lt;- i-1
     while(j &gt;= 1 &amp;&amp; lists[j] &gt; key) {
@@ -41,9 +45,6 @@ slug: insert-sort
   }
   return(lists)
 }</code></pre>
-<ul>
-<li>test</li>
-</ul>
 <p>随机生成50个1~100之间的整数进行测试；</p>
 <pre class="r"><code>library(magrittr)
 runif(50, 1, 100) %&gt;% round %T&gt;% 
@@ -51,10 +52,10 @@ runif(50, 1, 100) %&gt;% round %T&gt;%
   insert_sort %&gt;% 
   barplot(main = &quot;sorted&quot;, col = &quot;#99d594&quot;)</code></pre>
 <p><img src="/post/2017-10-18-insert-sort_files/figure-html/unnamed-chunk-3-1.png" width="672" /><img src="/post/2017-10-18-insert-sort_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
-<ul>
-<li>GIF</li>
-</ul>
-<p>利用<code>animation</code>将排序过程进行可视化。</p>
+</div>
+<div class="section level3">
+<h3>可视化</h3>
+<p>平时演戏较多养成了职业病，我手痒把排序过程利用<code>animation</code>演示出来，除了在荧幕前欣赏演技，还可以看看算法。</p>
 <pre class="r"><code>library(animation)
 lists &lt;- runif(50, 1, 100) %&gt;% round
 saveGIF({
@@ -84,4 +85,10 @@ saveGIF({
 <div class="figure">
 <img src="http://7xpbbb.com1.z0.glb.clouddn.com/insert.sort.gif" />
 
+</div>
+</div>
+<div class="section level3">
+<h3>分类</h3>
+<p>上面展示的属于<strong>直接插入排序</strong>，我们将待排序元素插入时，是从右往左挨个挨个试，这样并不划算，因为我们知道前面的数字已经排好顺序了，可以利用这个特性，快速找到待插入的位置，这便是<strong>折半插入排序</strong>；当然了，插入排序还有其他实现方法，这里按下暂且不表。</p>
+<p>再见。</p>
 </div>
