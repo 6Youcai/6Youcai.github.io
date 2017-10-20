@@ -64,7 +64,6 @@ runif(50, 1, 100) %>% round %T>%
   barplot(main = "unsorted", col = "#fc8d59") %>% 
   insert_sort %>% 
   barplot(main = "sorted", col = "#99d594")
-par(opar)
 ```
 
 ### 可视化
